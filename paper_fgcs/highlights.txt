@@ -1,0 +1,5 @@
+- Canonical 64 KB split-plane KV tiering achieves 1.00x NVMe write amplification.
+- Prefix-deterministic splits preserve 100% cross-agent SHA-256 KV deduplication.
+- Bias-centered 64 B subspace sketches cut KV routing metadata 32x-64x vs. Quest.
+- Zero-parameter two-layer lookahead hides uncached NVMe reads with 0.0 us stall.
+- Recovers up to 95.0% delayed recall and 81.2% multi-needle with 77.5% HBM saved.
