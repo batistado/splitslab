@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+*.egg-info/
+dist/
+build/
+/tmp/
+*.slab
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+HANDOFF_CONTEXT.md

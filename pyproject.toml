@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "splitslab"
+version = "0.1.0"
+description = "Write-Once Canonical-Hash Residual Tiering to Eliminate Write Amplification and Compaction Regret in Disaggregated KV Stores"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.11"
+authors = [
+  {name = "Mohammed Kamran Syed", email = "mohammedkamran.syed@ieee.org"},
+  {name = "Anudeep Rentala", email = "anudeep.rentala@ieee.org"},
+  {name = "Somesh Rahul", email = "someshrahul@ieee.org"},
+  {name = "Raghuram Malpe Pai", email = "raghuram.pai@ieee.org"},
+  {name = "Krishna Suman Dara", email = "krishna-suman.dara@ieee.org"},
+]
+dependencies = [
+  "numpy>=1.26",
+  "torch>=2.2",
+  "transformers>=4.45",
+]
+
+[tool.setuptools.packages.find]
+include = ["splitslab*", "recallregret_bench*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

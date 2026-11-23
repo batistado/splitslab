@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use SplitSlab or RecallRegret-Bench in your research, please cite our paper."
+title: "SplitSlab: Write-Once Canonical-Hash Residual Tiering to Eliminate Write Amplification and Compaction Regret in Disaggregated KV Stores"
+type: software
+version: "0.1.0"
+date-released: "2026-11-19"
+license: Apache-2.0
+repository-code: "https://github.com/batistado/splitslab"
+authors:
+  - family-names: "Syed"
+    given-names: "Mohammed Kamran"
+    email: "mohammedkamran.syed@ieee.org"
+    orcid: "https://orcid.org/0009-0009-9058-5375"
+  - family-names: "Rentala"
+    given-names: "Anudeep"
+    email: "anudeep.rentala@ieee.org"
+  - family-names: "Rahul"
+    given-names: "Somesh"
+    email: "someshrahul@ieee.org"
+  - family-names: "Pai"
+    given-names: "Raghuram Malpe"
+    email: "raghuram.pai@ieee.org"
+  - family-names: "Dara"
+    given-names: "Krishna Suman"
+    email: "krishna-suman.dara@ieee.org"
+keywords:
+  - disaggregated KV-cache serving
+  - NVMe write amplification
+  - KV-cache eviction and tiering
+  - subspace routing sketches
+  - large language model agents
+  - content-addressed prefix deduplication
