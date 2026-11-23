@@ -305,14 +305,17 @@ class SplitSlabSession:
         nbr_rad = max(4, int(round(200.0 / self.geom.block_tokens)))
         excl_rad = max(2, int(round(60.0 / self.geom.block_tokens)))
         valid_hi = max(2, m_blocks - 1)
-        detrended = torch.zeros_like(raw_m)
-        for m in range(1, cutoff_b):
-            nbrs = [
-                raw_m[j].item()
-                for j in range(max(1, m - nbr_rad), min(valid_hi, m + nbr_rad + 1))
-                if abs(j - m) >= excl_rad
-            ]
-            detrended[m] = max(0.0, float(raw_m[m].item()) - (float(np.median(nbrs)) if nbrs else 0.0))
+        # Vectorized sliding-window neighborhood median (eliminates per-block GPU->CPU syncs)
+        raw_np = raw_m.detach().cpu().numpy().astype(np.float32, copy=False)
+        padded = np.full(m_blocks + 2 * nbr_rad, np.nan, dtype=np.float32)
+        padded[nbr_rad + 1 : nbr_rad + valid_hi] = raw_np[1:valid_hi]
+        wins = np.lib.stride_tricks.sliding_window_view(padded, 2 * nbr_rad + 1)[1:cutoff_b].copy()
+        wins[:, nbr_rad - excl_rad + 1 : nbr_rad + excl_rad] = np.nan
+        meds = np.nanmedian(wins, axis=1)
+        meds = np.where(np.isnan(meds), 0.0, meds)
+        det_np = np.zeros(m_blocks, dtype=np.float32)
+        det_np[1:cutoff_b] = np.maximum(0.0, raw_np[1:cutoff_b] - meds)
+        detrended = torch.from_numpy(det_np).to(device=self.device, dtype=raw_m.dtype)
         # Scale-invariant block-density normalization across GQA stripe sizes and 2K-16K horizons
         density_scale = (float(cutoff_b) / 38.0) ** 0.62
         detrended = detrended * density_scale
