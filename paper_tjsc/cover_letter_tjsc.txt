@@ -1,0 +1,22 @@
+Dear Editor-in-Chief and Editorial Board of The Journal of Supercomputing,
+
+Please consider our original research manuscript, "SplitSlab: Write-Once Split-Plane KV-Cache Tiering for Low Write Amplification and Delayed Recall in LLM Serving," for publication in The Journal of Supercomputing.
+
+Scope Fit for The Journal of Supercomputing:
+Our manuscript sits directly at the intersection of high-performance computing architecture, memory-storage hierarchy co-design, and systems performance evaluation for Large Language Model (LLM) inference. Specifically, it addresses three measurable hardware-software bottlenecks when long-horizon LLM serving systems combine GPU HBM Key-Value (KV) cache compaction with NVMe flash offloading:
+1. Cross-agent SHA-256 prefix-hash collapse (0% fleet sharing and up to 5.47x extra flash writes under query-driven eviction).
+2. Flash write amplification (7.5x to 53.7x WAF from turn-by-turn re-compaction).
+3. Delayed-recall accuracy loss ("compaction regret," 0.0% exact match for irreversible eviction).
+
+We present SplitSlab, a write-once two-plane KV tiering engine that aligns evicted residual blocks to exact 64 KB flash stripes (WAF = 1.00x, 100% cross-agent deduplication), retains a 64-byte bias-centered subspace routing sketch in GPU HBM, and hides uncached NVMe read latency via parameter-free two-layer speculative lookahead. We back the architecture with formal error and write-amplification bounds and evaluate it across four 3B to 14B open-weight models using uncached direct NVMe I/O (fcntl.F_NOCACHE).
+
+All code, benchmark generators, 21-test verification suite, raw JSON logs, and figure scripts are publicly available under the Apache-2.0 License at https://github.com/batistado/splitslab and https://huggingface.co/datasets/batistado/RecallRegret-Bench.
+
+We confirm that this manuscript is original, has not been published previously, and is not under consideration for publication elsewhere. All authors have approved the manuscript and declare no competing interests.
+
+Thank you for your time and consideration.
+
+Sincerely,
+Mohammed Kamran Syed (Corresponding Author, ORCID: 0009-0009-9058-5375)
+mohammedkamran.syed@ieee.org
+On behalf of co-authors: Anudeep Rentala, Somesh Rahul, Raghuram Malpe Pai, and Krishna Suman Dara
